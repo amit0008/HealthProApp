@@ -1,0 +1,78 @@
+﻿@model IEnumerable<HealthPro2.Models.FoodPlanInfo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1>My Food Plans</h1>
+<h3>Track Your Calories And Log Your Plans !</h3>
+<br /><br />
+@using (Html.BeginForm("Index", "FoodPlans", FormMethod.Get))
+{
+ 
+      <table class="table table-striped">
+          <thead>
+              <tr>
+                  <th>UserID</th>
+                  <th>Plan Name</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Edit Plan</th>
+                  <th>Food</th>
+                  <th>Calories</th>
+                  <th>Quantity</th>
+                  <th>Total Calories</th>
+              </tr>
+          </thead>
+          <tbody>
+              @if (Model.Count() == 0)
+              {
+                  <tr>
+                      <td colspan="3" style="color:red">
+                          No Plan Found !
+                      </td>
+                  </tr>
+              }
+              else
+              {
+                  int x = -1;
+
+                  foreach (var item in Model)
+                  {
+                      if (x != item.PlanId)
+                      {
+                          <tr>
+                              <td rowspan="4">@item.UserId</td>
+                              <td rowspan="4">@item.FoodPlan.PlanName</td>
+                              <td rowspan="4">@item.FoodPlan.StartDate.Day-@item.FoodPlan.StartDate.Month-@item.FoodPlan.StartDate.Year</td>
+                              <td rowspan="4">@item.FoodPlan.EndDate.Day-@item.FoodPlan.EndDate.Month-@item.FoodPlan.EndDate.Year</td>
+                              <td rowspan="4">
+                                  @Html.ActionLink("Edit", "Edit", new { id = item.PlanId }) |
+                                  @Html.ActionLink("Details", "Details", new { id = item.PlanId }) |
+                                  @Html.ActionLink("Delete", "Delete", new { id = item.PlanId })
+                              </td>
+                          </tr>
+                      }
+
+                          <tr>
+                              <td>@item.Food.FoodName</td>
+                              <td>@item.Food.Calories /100 grams</td>
+                              <td>@item.Quantity</td>
+                              <td>@(@item.Food.Calories * @item.Quantity)</td>
+
+                          </tr>
+
+                      x = @item.PlanId;
+                   }
+              }
+          </tbody>
+          </table>
+
+}
+
+
+<p>
+    @Html.ActionLink("Create a new food plan", "Create")
+</p>

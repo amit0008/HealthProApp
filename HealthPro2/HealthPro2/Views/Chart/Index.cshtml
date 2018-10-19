@@ -1,0 +1,92 @@
+﻿<h1>HealthPro Analytics</h1>
+
+<h3>Take Control Of Your Goals !</h3>
+<script src="~/Scripts/Charts/exporting.js"></script>
+<script src="~/Scripts/Charts/highcharts.js"></script>
+<div class="jumbotron" style="margin-top:30px">
+
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+</div>
+
+
+
+<script>
+
+
+    $(document).ready(function () {
+        $.getJSON("GetfoodPlanInfo", function (data) {
+
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Total Number of Calories By Plan'
+                },
+                xAxis: {
+                    categories: data.PlanName,
+                    title: {
+                        text: 'Plan Name'
+                    },
+
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Total Calories'
+                    },
+                    stackLabels: {
+                        enabled: true,
+                        style: {
+                            fontWeight: 'bold',
+                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                        }
+                    }
+                },
+                legend: {
+                    align: 'right',
+                    x: -30,
+                    verticalAlign: 'top',
+                    y: 25,
+                    floating: true,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                    borderColor: '#CCC',
+                    borderWidth: 1,
+                    shadow: false
+                },
+                tooltip: {
+                    headerFormat: '<b>{point.x}</b><br/>',
+                    pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        dataLabels: {
+                            enabled: true,
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Food 1',
+                    data: data.Array1
+                }, {
+                    name: 'Food 2',
+                    data: data.Array2
+                }, {
+                    name: 'Food 3',
+                    data: data.Array3
+                }]
+            });
+
+
+
+        });
+
+    });
+
+
+
+
+</script>

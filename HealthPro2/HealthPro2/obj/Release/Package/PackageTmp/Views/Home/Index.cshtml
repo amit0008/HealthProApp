@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+
+<div class="jumbotron" style="background-image: url('../../Content/image2.jpg')">
+    <h1 style="color:navajowhite">Lose weight with HealthPro</h1>
+    <h2 style="color:navajowhite">The fastest and easiest to use calorie counter app.</h2>
+    <p class="lead"></p>
+
+    @if (Request.IsAuthenticated)
+    {
+        String name = @User.Identity.Name;
+        String userName = name.Substring(0, name.IndexOf('@'));
+        <p style="color:navajowhite">Welcome @userName </p>
+
+    }
+    else
+    {
+        <p><a href="http://localhost:51310/Account/Login" style="background-color:navajowhite;color:saddlebrown" class="btn btn-primary btn-lg">Start Planning &raquo;</a></p>
+    }
+</div>
+<div> <h3 style="text-align:center;color:#1a0d00">Millions of people have lost weight with HealthPro's FREE calorie counter</h3></div>
+<div class="row">
+    <div class="col-md-3">
+        <h3 >Food List</h3>
+        <p style="text-align:justify">
+            We believe — and medical studies prove, that the best way to lose weight and keep it off is to simply keep track of the foods you eat.
+        </p>
+        @using Microsoft.AspNet.Identity
+        @if (Request.IsAuthenticated)
+        {
+            <p><a href="http://localhost:51310/Foods" >Click Here For More Info</a></p>
+
+        }
+        else
+        {
+            <p><a href="http://localhost:51310/Account/Login">Click Here For More Info</a></p>
+        }
+    </div>
+    <div class="col-md-3">
+        <h3>Food Plan</h3>
+        <p style="text-align:justify">
+            Losing weight isn't easy - we know. But with a membership to HealthPro, you'll get the tools you need to successfully take weight off - and keep it off.
+        </p>
+        @using Microsoft.AspNet.Identity
+        @if (Request.IsAuthenticated)
+        {
+            <p><a href="http://localhost:51310/FoodPlans" >Click Here For More Info</a></p>
+
+        }
+        else
+        {
+            <p><a href="http://localhost:51310/Account/Login" >Click Here For More Info</a></p>
+        }
+    </div>
+    <div class="col-md-3">
+        <h3>Restaurant Search</h3>
+        <p style="text-align:justify">
+            Helping people discover great places around them. Our team gathers information from every restaurant on a regular basis to ensure our data is fresh. We want you to stay healthy and eat healthy.
+        </p>
+        @using Microsoft.AspNet.Identity
+        @if (Request.IsAuthenticated)
+        {
+            <p><a href="http://localhost:51310/Locations" >Click Here For More Info</a></p>
+
+        }
+        else
+        {
+            <p><a href="http://localhost:51310/Account/Login" >Click Here For More Info</a></p>
+        }
+    </div>
+
+    <div class="col-md-3">
+        <h3>Analytics</h3>
+        <p style="text-align:justify">
+            Study after study has confirmed the benefits of keeping track of the food you eat and the activity you do. We will keep an activity log to monitor your weight.
+        </p>
+        @using Microsoft.AspNet.Identity
+        @if (Request.IsAuthenticated)
+        {
+            <p><a href="http://localhost:51310/Chart/Index">Click Here For More Info</a></p>
+
+        }
+        else
+        {
+            <p><a href="http://localhost:51310/Account/Login">Click Here For More Info</a></p>
+        }
+
+    </div>
+</div>
+
+<style>
+    .jumbotron{
+        margin-top:20px;
+        background-size:100% 100%;
+        height:100%;
+        width:100%;
+        background-repeat:no-repeat;
+        background-position:center;
+    }
+</style>

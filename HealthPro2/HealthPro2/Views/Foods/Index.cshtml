@@ -1,0 +1,59 @@
+﻿@model IEnumerable<HealthPro2.Models.Food>
+
+
+<h1>Food List</h1>
+
+<h3>Fitness Starts With What You Eat !</h3>
+<br /><br />
+@using (Html.BeginForm("Index", "Foods", FormMethod.Get))
+{
+    
+    @Html.TextBox("search")<input  type="submit" id="textbox"  value="Search" p />
+    
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Food ID</th>
+            <th>Food Name</th>
+            <th>Calories</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="3" style="color:red">
+                    No Match Found !
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.FoodId</td>
+                <td>@item.FoodName</td>
+                <td>@item.Calories</td>
+                @if (User.Identity.Name == "admin@gmail.com")
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.FoodId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.FoodId })
+                    </td>
+                }
+            </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+@if (User.Identity.Name == "admin@gmail.com")
+{
+    <p>
+        @Html.ActionLink("Create a new food", "Create")
+    </p>
+}
